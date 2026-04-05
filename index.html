@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>InsurePQ | Cyber Insurance for the Post-Quantum Era</title>
+  <meta name="description" content="InsurePQ is the first cyber insurance platform designed specifically for the post-quantum transition — covering the risks organisations face as classical cryptography becomes obsolete." />
+  <meta name="keywords" content="post-quantum cyber insurance, quantum risk insurance, PQC transition coverage, quantum computing insurance, cyber insurance quantum threat, Y2Q risk management" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:title" content="InsurePQ — Cyber Insurance for the Post-Quantum Era" />
+  <meta property="og:description" content="The quantum threat is a known, quantifiable risk. InsurePQ is the coverage built for it." />
+  <meta property="og:url" content="https://insurepq.com" />
+  <meta property="og:type" content="website" />
+  <link rel="canonical" href="https://insurepq.com" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --cream:        #faf8f3;
+      --warm-white:   #f5f2eb;
+      --cloud:        #e8e2d6;
+      --stone:        #c8bfac;
+      --amber:        #d97706;
+      --amber-bright: #f59e0b;
+      --amber-dim:    #92500a;
+      --teal:         #0f766e;
+      --teal-bright:  #14b8a6;
+      --teal-dim:     #0a4f48;
+      --teal-glow:    rgba(15,118,110,0.1);
+      --void:         #080b0a;
+      --dark:         #0d1210;
+      --panel:        #121a18;
+      --text-primary: #0d1210;
+      --text-muted:   #4a5a55;
+      --text-soft:    #8a9a94;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--cream);
+      color: var(--text-primary);
+      overflow-x: hidden;
+    }
+
+    /* ── BANNER ── */
+    #offer-banner {
+      background: var(--void);
+      color: rgba(250,248,243,0.5);
+      text-align: center;
+      padding: 0.6rem 1.5rem;
+      font-size: 0.76rem; letter-spacing: 0.03em; line-height: 1.5;
+      position: relative; z-index: 200;
+    }
+    #offer-banner a {
+      color: var(--amber-bright); text-decoration: none; font-weight: 500;
+      border-bottom: 1px solid rgba(245,158,11,0.3);
+      transition: color 0.2s, border-color 0.2s;
+    }
+    #offer-banner a:hover { color: #fbbf24; border-color: #fbbf24; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 4rem;
+      background: rgba(250,248,243,0.93);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(200,191,172,0.4);
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+    nav.scrolled {
+      background: rgba(250,248,243,0.99);
+      box-shadow: 0 1px 20px rgba(13,18,16,0.08);
+    }
+    .nav-logo {
+      font-family: 'Fraunces', serif;
+      font-size: 1.4rem; font-weight: 600;
+      letter-spacing: 0.01em; color: var(--text-primary);
+      text-decoration: none; flex-shrink: 0;
+    }
+    .nav-logo span { color: var(--teal); }
+
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.78rem; font-weight: 400;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      color: var(--text-muted); text-decoration: none; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text-primary); }
+
+    .nav-cta {
+      font-size: 0.76rem; font-weight: 500;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--cream); background: var(--teal);
+      border: none; padding: 0.62rem 1.4rem; border-radius: 3px;
+      cursor: pointer; text-decoration: none; white-space: nowrap;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .nav-cta:hover { background: var(--teal-bright); transform: translateY(-1px); }
+
+    .nav-hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; padding: 4px; background: none; border: none;
+    }
+    .nav-hamburger span {
+      display: block; width: 24px; height: 2px;
+      background: var(--text-primary); border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .nav-drawer {
+      display: none; position: fixed; inset: 0;
+      background: rgba(8,11,10,0.97); z-index: 99;
+      flex-direction: column; align-items: center;
+      justify-content: center; gap: 2.5rem; padding: 2rem;
+    }
+    .nav-drawer.open { display: flex; }
+    .nav-drawer a {
+      font-family: 'Fraunces', serif;
+      font-size: 2.2rem; font-weight: 300; color: var(--cream);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .nav-drawer a:hover { color: var(--teal-bright); }
+    .nav-drawer .drawer-cta {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.82rem; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--cream); background: var(--teal);
+      padding: 1rem 2.5rem; border-radius: 3px; margin-top: 0.5rem;
+    }
+    .drawer-close {
+      position: absolute; top: 1.5rem; right: 1.5rem;
+      background: none; border: none; color: rgba(250,248,243,0.35);
+      font-size: 1.8rem; cursor: pointer; line-height: 1;
+    }
+
+    /* ── HERO ── */
+    #hero {
+      position: relative; width: 100%; height: 100svh;
+      min-height: 560px; display: flex;
+      align-items: center; justify-content: center;
+      overflow: hidden; background: var(--dark);
+    }
+    #hero-fallback {
+      position: absolute; inset: 0;
+      background: linear-gradient(160deg, #080b0a 0%, #0d1a18 50%, #121a18 100%);
+      z-index: 0;
+    }
+    #hero-bg-img {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; object-position: center 40%; z-index: 1;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(8,11,10,0.62) 0%,
+        rgba(8,11,10,0.30) 38%,
+        rgba(8,11,10,0.88) 100%
+      );
+      z-index: 2;
+    }
+    /* Subtle noise/grain texture */
+    .hero-grain {
+      position: absolute; inset: 0; z-index: 2;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none; opacity: 0.4;
+    }
+
+    .hero-content {
+      position: relative; z-index: 3; text-align: center;
+      color: var(--cream); max-width: 840px; padding: 0 1.5rem;
+    }
+    .hero-eyebrow {
+      font-size: 0.7rem; font-weight: 400;
+      letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--amber-bright); margin-bottom: 1.4rem;
+      opacity: 0; animation: fadeUp 1s 0.3s cubic-bezier(0.22,1,0.36,1) forwards;
+    }
+    .hero-title {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2.8rem, 8vw, 6.5rem);
+      font-weight: 300; line-height: 1.08;
+      letter-spacing: -0.01em; margin-bottom: 1.6rem;
+      opacity: 0; animation: fadeUp 1.1s 0.5s cubic-bezier(0.22,1,0.36,1) forwards;
+    }
+    .hero-title em { font-style: italic; color: var(--teal-bright); }
+    .hero-sub {
+      font-size: clamp(0.92rem, 2.2vw, 1.05rem); font-weight: 300;
+      line-height: 1.78; color: rgba(250,248,243,0.68);
+      max-width: 520px; margin: 0 auto 2.2rem;
+      opacity: 0; animation: fadeUp 1.1s 0.7s cubic-bezier(0.22,1,0.36,1) forwards;
+    }
+    .hero-actions {
+      display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+      opacity: 0; animation: fadeUp 1.1s 0.9s cubic-bezier(0.22,1,0.36,1) forwards;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .btn-primary {
+      font-size: 0.76rem; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--cream); background: var(--teal);
+      border: none; padding: 0.95rem 2rem; border-radius: 3px;
+      cursor: pointer; text-decoration: none;
+      transition: background 0.25s, transform 0.2s;
+    }
+    .btn-primary:hover { background: var(--teal-bright); transform: translateY(-2px); }
+    .btn-ghost {
+      font-size: 0.76rem; font-weight: 400;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--cream); background: transparent;
+      border: 1px solid rgba(250,248,243,0.3);
+      padding: 0.95rem 2rem; border-radius: 3px;
+      cursor: pointer; text-decoration: none;
+      transition: border-color 0.2s, background 0.2s, transform 0.2s;
+    }
+    .btn-ghost:hover {
+      border-color: var(--teal-bright); background: var(--teal-glow); transform: translateY(-2px);
+    }
+    .hero-scroll-hint {
+      position: absolute; bottom: 2rem; left: 50%;
+      transform: translateX(-50%); z-index: 3;
+      display: flex; flex-direction: column; align-items: center; gap: 0.45rem;
+      color: rgba(250,248,243,0.3); font-size: 0.6rem;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      animation: scrollFloat 2.5s ease-in-out infinite;
+    }
+    @keyframes scrollFloat {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(7px); }
+    }
+    .scroll-line {
+      width: 1px; height: 36px;
+      background: linear-gradient(to bottom, rgba(15,118,110,0.7), transparent);
+    }
+
+    /* ── SECTION COMMON ── */
+    .section-label {
+      font-size: 0.67rem; font-weight: 500;
+      letter-spacing: 0.26em; text-transform: uppercase;
+      color: var(--teal); margin-bottom: 1rem;
+    }
+    .section-title {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2rem, 5vw, 3.6rem);
+      font-weight: 300; line-height: 1.14;
+      color: var(--text-primary); margin-bottom: 1.4rem;
+    }
+    .section-title em { font-style: italic; color: var(--teal); }
+    .section-body {
+      font-size: 0.97rem; font-weight: 300;
+      line-height: 1.85; color: var(--text-muted); max-width: 520px;
+    }
+
+    /* ── RISK SECTION ── */
+    #risk-wrap { padding: 6rem 4rem; background: #fff; }
+    #risk {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: center;
+      max-width: 1200px; margin: 0 auto;
+    }
+
+    /* risk meter */
+    .risk-items { display: flex; flex-direction: column; gap: 1.4rem; }
+    .risk-item { display: flex; flex-direction: column; gap: 0.5rem; }
+    .risk-head {
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .risk-name { font-size: 0.85rem; font-weight: 500; color: var(--text-primary); }
+    .risk-level {
+      font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.2rem 0.65rem; border-radius: 99px;
+    }
+    .risk-level.critical { color: #dc2626; background: rgba(220,38,38,0.1); border: 1px solid rgba(220,38,38,0.25); }
+    .risk-level.high     { color: var(--amber); background: rgba(217,119,6,0.1); border: 1px solid rgba(217,119,6,0.25); }
+    .risk-level.medium   { color: var(--teal); background: var(--teal-glow); border: 1px solid rgba(15,118,110,0.25); }
+    .bar-track {
+      height: 8px; background: var(--cloud); border-radius: 99px; overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%; border-radius: 99px; width: 0;
+      transition: width 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .bar-fill.critical { background: linear-gradient(to right, #ef4444, #dc2626); }
+    .bar-fill.high     { background: linear-gradient(to right, var(--amber-bright), var(--amber)); }
+    .bar-fill.medium   { background: linear-gradient(to right, var(--teal-bright), var(--teal)); }
+
+    .risk-callout {
+      background: linear-gradient(135deg, var(--teal-dim) 0%, var(--dark) 100%);
+      border-radius: 3px; padding: 2.2rem; margin-top: 1.4rem; color: var(--cream);
+    }
+    .risk-callout .big-stat {
+      font-family: 'Fraunces', serif;
+      font-size: 3.8rem; font-weight: 300; line-height: 1;
+      color: var(--amber-bright); margin-bottom: 0.4rem;
+    }
+    .risk-callout p {
+      font-size: 0.82rem; font-weight: 300;
+      color: rgba(250,248,243,0.62); line-height: 1.68;
+    }
+
+    /* ── COVERAGE ── */
+    #coverage {
+      background: var(--dark); padding: 7rem 4rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .cov-inner { max-width: 1200px; margin: 0 auto; }
+    #coverage .section-title { color: var(--cream); }
+    #coverage .section-title em { color: var(--teal-bright); }
+    #coverage .section-body { color: rgba(250,248,243,0.52); }
+    #coverage .section-label { color: var(--teal-bright); }
+    .cov-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 2px; margin-top: 4rem;
+    }
+    .cov-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(15,118,110,0.12);
+      padding: 2.5rem 2rem;
+      transition: background 0.3s; position: relative; overflow: hidden;
+    }
+    .cov-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(to right, var(--teal-dim), var(--teal-bright));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.4s cubic-bezier(0.22,1,0.36,1);
+    }
+    .cov-card:hover::before { transform: scaleX(1); }
+    .cov-card:hover { background: rgba(15,118,110,0.06); }
+    .cov-type {
+      font-size: 0.62rem; font-weight: 500;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--teal-bright); display: block; margin-bottom: 1rem;
+    }
+    .cov-card h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.4rem; font-weight: 400;
+      margin-bottom: 0.8rem; color: var(--cream);
+    }
+    .cov-card p {
+      font-size: 0.86rem; font-weight: 300;
+      line-height: 1.75; color: rgba(250,248,243,0.5);
+    }
+
+    /* ── UNDERWRITING ── */
+    #uw-wrap { padding: 7rem 4rem; background: var(--cream); }
+    #uw {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: center;
+    }
+
+    .uw-steps { display: flex; flex-direction: column; gap: 0; }
+    .uw-step {
+      display: grid; grid-template-columns: 44px 1fr;
+      gap: 1.2rem; padding: 1.4rem 0;
+      border-bottom: 1px solid var(--cloud); align-items: start;
+    }
+    .uw-step:first-child { border-top: 1px solid var(--cloud); }
+    .uw-num {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--teal-glow); border: 1px solid rgba(15,118,110,0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.78rem; font-weight: 600; color: var(--teal);
+      flex-shrink: 0; margin-top: 0.1rem;
+    }
+    .uw-body h4 {
+      font-size: 0.9rem; font-weight: 500;
+      color: var(--text-primary); margin-bottom: 0.25rem;
+    }
+    .uw-body p {
+      font-size: 0.79rem; font-weight: 300;
+      color: var(--text-muted); line-height: 1.62;
+    }
+
+    .uw-stats { display: flex; gap: 2rem; flex-wrap: wrap; }
+    .uw-stat { flex: 1; min-width: 110px; text-align: center; }
+    .uw-num-big {
+      font-family: 'Fraunces', serif;
+      font-size: 2.6rem; font-weight: 300;
+      color: var(--teal); line-height: 1;
+    }
+    .uw-num-big.amber { color: var(--amber); }
+    .uw-label {
+      font-size: 0.7rem; font-weight: 400;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--text-soft); margin-top: 0.35rem;
+    }
+    .uw-divider { width: 1px; background: var(--cloud); align-self: stretch; }
+
+    /* ── SECTORS ── */
+    #sectors {
+      background: linear-gradient(135deg, var(--teal-dim) 0%, var(--void) 100%);
+      padding: 7rem 4rem; text-align: center; color: var(--cream);
+    }
+    #sectors .section-label { color: var(--teal-bright); }
+    #sectors .section-title { color: var(--cream); margin: 0 auto 1.4rem; }
+    #sectors .section-title em { color: var(--teal-bright); }
+    #sectors .section-body { color: rgba(250,248,243,0.58); margin: 0 auto 3.5rem; text-align: center; }
+    .sectors-grid {
+      display: flex; justify-content: center; flex-wrap: wrap;
+      gap: 1rem; max-width: 860px; margin: 0 auto;
+    }
+    .sector-tag {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(20,184,166,0.2);
+      color: rgba(250,248,243,0.72);
+      font-size: 0.8rem; letter-spacing: 0.06em;
+      padding: 0.65rem 1.3rem; border-radius: 3px;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+    }
+    .sector-tag:hover {
+      background: rgba(15,118,110,0.2); border-color: var(--teal-bright); color: var(--teal-bright);
+    }
+
+    /* ── CTA ── */
+    #cta-section {
+      background: var(--warm-white); text-align: center; padding: 7rem 2rem;
+    }
+    #cta-section .section-title { margin: 0 auto 1rem; }
+    #cta-section .section-body  { margin: 0 auto 2.5rem; text-align: center; }
+    .waitlist-form {
+      display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap;
+    }
+    .waitlist-form input {
+      font-family: 'Inter', sans-serif; font-size: 0.9rem;
+      padding: 0.95rem 1.4rem; border: 1px solid var(--stone);
+      border-radius: 3px; width: 280px; max-width: 100%; outline: none;
+      color: var(--text-primary); background: #fff; transition: border-color 0.2s;
+    }
+    .waitlist-form input:focus { border-color: var(--teal); }
+
+    /* ── FOOTER ── */
+    footer { background: var(--void); padding: 4rem 4rem 3rem; }
+    .footer-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem;
+    }
+    .footer-brand .nav-logo { color: var(--cream); display: block; margin-bottom: 1rem; }
+    footer p, footer a {
+      font-size: 0.79rem; font-weight: 300; line-height: 1.85;
+      color: rgba(250,248,243,0.36); text-decoration: none;
+    }
+    footer a:hover { color: var(--teal-bright); }
+    .footer-col h4 {
+      font-size: 0.65rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: rgba(250,248,243,0.45); margin-bottom: 1rem;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 0.35rem; }
+    .footer-bottom {
+      max-width: 1200px; margin: 2.5rem auto 0;
+      border-top: 1px solid rgba(255,255,255,0.07); padding-top: 2rem;
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.72rem; flex-wrap: wrap; gap: 0.5rem;
+    }
+
+    .fade-up {
+      opacity: 0; transform: translateY(22px);
+      transition: opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1);
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 1024px) {
+      nav { padding: 1.1rem 2rem; }
+      #risk-wrap, #uw-wrap, #coverage, #sectors { padding: 5rem 2rem; }
+      .footer-inner { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+    }
+    @media (max-width: 768px) {
+      .nav-links, .nav-cta { display: none; }
+      .nav-hamburger { display: flex; }
+      nav { padding: 1rem 1.5rem; }
+      #hero { min-height: 500px; }
+      .hero-scroll-hint { display: none; }
+      #risk { grid-template-columns: 1fr; gap: 3rem; }
+      #uw   { grid-template-columns: 1fr; gap: 3rem; }
+      .cov-grid { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr 1fr; gap: 2rem; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+    }
+    @media (max-width: 480px) {
+      .footer-inner { grid-template-columns: 1fr; }
+      .hero-actions { flex-direction: column; align-items: center; }
+      .btn-primary, .btn-ghost { width: 100%; max-width: 300px; text-align: center; }
+      .waitlist-form { flex-direction: column; align-items: center; }
+      .waitlist-form input { width: 100%; max-width: 320px; }
+      .uw-stats { gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="offer-banner">
+    insurepq.com is available for acquisition.&ensp;·&ensp;
+    <a href="https://hacklb.com" target="_blank" rel="noopener noreferrer">Browse our domain portfolio →</a>
+  </div>
+
+  <nav id="main-nav">
+    <a class="nav-logo" href="/">Insure<span>PQ</span></a>
+    <ul class="nav-links">
+      <li><a href="#risk-wrap">The Risk</a></li>
+      <li><a href="#coverage">Coverage</a></li>
+      <li><a href="#uw-wrap">Underwriting</a></li>
+    </ul>
+    <a class="nav-cta" href="#cta-section">Get a Quote</a>
+    <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="nav-drawer" id="nav-drawer" role="dialog" aria-label="Navigation menu">
+    <button class="drawer-close" id="drawer-close" aria-label="Close menu">✕</button>
+    <a href="#risk-wrap"  onclick="closeDrawer()">The Risk</a>
+    <a href="#coverage"   onclick="closeDrawer()">Coverage</a>
+    <a href="#uw-wrap"    onclick="closeDrawer()">Underwriting</a>
+    <a href="#cta-section" onclick="closeDrawer()" class="drawer-cta">Get a Quote</a>
+  </div>
+
+  <section id="hero" aria-label="InsurePQ — Cyber Insurance for the Post-Quantum Era">
+    <div id="hero-fallback"></div>
+    <img
+      id="hero-bg-img"
+      src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=1800&q=80&auto=format&fit=crop"
+      alt="Abstract financial risk concept representing post-quantum cyber insurance"
+    />
+    <div class="hero-overlay"></div>
+    <div class="hero-grain"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Post-Quantum Cyber Insurance</p>
+      <h1 class="hero-title">The quantum threat<br>is a risk you can<br><em>insure against.</em></h1>
+      <p class="hero-sub">Post-quantum cryptography migration is the largest cybersecurity transition in decades. InsurePQ is the first insurance product designed specifically for the exposures it creates — and the catastrophic losses it can prevent.</p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="#cta-section">Get a Quote</a>
+        <a class="btn-ghost"   href="#risk-wrap">Understand the Risk</a>
+      </div>
+    </div>
+    <div class="hero-scroll-hint" aria-hidden="true">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <div id="risk-wrap">
+    <section id="risk">
+      <div class="fade-up">
+        <p class="section-label">The Quantum Risk Landscape</p>
+        <h2 class="section-title">A known risk with<br>an <em>unknown date</em></h2>
+        <p class="section-body">The quantum threat is structurally different from other cyber risks — it is not probabilistic, it is inevitable. Every organisation relying on classical cryptography will face exposure. The only question is when, and whether they are prepared when it happens.</p>
+      </div>
+      <div class="fade-up" style="transition-delay:0.1s;">
+        <div class="risk-items">
+          <div class="risk-item">
+            <div class="risk-head">
+              <span class="risk-name">Harvest-now, decrypt-later attacks</span>
+              <span class="risk-level critical">Critical</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill critical" data-width="95"></div></div>
+          </div>
+          <div class="risk-item">
+            <div class="risk-head">
+              <span class="risk-name">Legacy infrastructure cryptographic failure</span>
+              <span class="risk-level critical">Critical</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill critical" data-width="88"></div></div>
+          </div>
+          <div class="risk-item">
+            <div class="risk-head">
+              <span class="risk-name">PQC migration project liability</span>
+              <span class="risk-level high">High</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill high" data-width="72"></div></div>
+          </div>
+          <div class="risk-item">
+            <div class="risk-head">
+              <span class="risk-name">Certificate authority quantum compromise</span>
+              <span class="risk-level high">High</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill high" data-width="65"></div></div>
+          </div>
+          <div class="risk-item">
+            <div class="risk-head">
+              <span class="risk-name">Hybrid migration period exposure</span>
+              <span class="risk-level medium">Medium</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill medium" data-width="48"></div></div>
+          </div>
+        </div>
+        <div class="risk-callout">
+          <div class="big-stat">$3T+</div>
+          <p>estimated global economic exposure to quantum-enabled cyber attacks on classical cryptographic infrastructure by 2035.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <section id="coverage" aria-label="InsurePQ Coverage">
+    <div class="cov-inner">
+      <div class="fade-up" style="max-width:600px;">
+        <p class="section-label">Coverage Products</p>
+        <h2 class="section-title">Insurance built for<br><em>quantum-era</em> risks</h2>
+        <p class="section-body">InsurePQ underwrites the specific exposures created by the post-quantum transition — from harvest-now attacks to migration project failures — with coverage structures designed for risks that classical cyber insurers don't model.</p>
+      </div>
+      <div class="cov-grid">
+        <article class="cov-card fade-up">
+          <span class="cov-type">First-Party</span>
+          <h3>Cryptographic Breach Cover</h3>
+          <p>Coverage for losses resulting from quantum-enabled decryption of historically harvested data — including regulatory fines, notification costs, and business interruption.</p>
+        </article>
+        <article class="cov-card fade-up" style="transition-delay:0.1s">
+          <span class="cov-type">First-Party</span>
+          <h3>Migration Project Coverage</h3>
+          <p>Covers cost overruns, project failures, and system outages during PQC migration — including third-party implementation liability and supply chain failure.</p>
+        </article>
+        <article class="cov-card fade-up" style="transition-delay:0.2s">
+          <span class="cov-type">Third-Party</span>
+          <h3>Cryptographic Liability</h3>
+          <p>Liability cover for technology providers, SaaS vendors, and managed services whose customers suffer losses attributable to classical cryptographic failures.</p>
+        </article>
+        <article class="cov-card fade-up" style="transition-delay:0.05s">
+          <span class="cov-type">Regulatory</span>
+          <h3>Compliance Failure Cover</h3>
+          <p>Coverage for regulatory penalties arising from failure to meet mandated PQC migration timelines — including CNSA 2.0 and EU NIS2 obligations.</p>
+        </article>
+        <article class="cov-card fade-up" style="transition-delay:0.15s">
+          <span class="cov-type">Incident Response</span>
+          <h3>Quantum Incident Response</h3>
+          <p>Pre-contracted access to specialist PQC incident response teams, forensic investigators, and cryptographic remediation experts — at the moment you need them most.</p>
+        </article>
+        <article class="cov-card fade-up" style="transition-delay:0.25s">
+          <span class="cov-type">Strategic</span>
+          <h3>Board-Level Risk Advisory</h3>
+          <p>Ongoing quantum risk advisory for boards and risk committees — including CISO briefings, regulatory horizon scanning, and peer benchmarking.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <div id="uw-wrap">
+    <section id="uw">
+      <div class="fade-up">
+        <p class="section-label">Our Underwriting Approach</p>
+        <h2 class="section-title">Risk-based pricing<br>for a <em>new class</em> of threat</h2>
+        <p class="section-body" style="margin-bottom:2rem;">InsurePQ underwriters combine classical actuarial methods with quantum computing threat modelling — developed in partnership with leading cryptographers, national laboratories, and intelligence community alumni.</p>
+        <div class="uw-stats">
+          <div class="uw-stat">
+            <div class="uw-num-big">48hr</div>
+            <div class="uw-label">Quote turnaround</div>
+          </div>
+          <div class="uw-divider"></div>
+          <div class="uw-stat">
+            <div class="uw-num-big amber">A+</div>
+            <div class="uw-label">Reinsurance rated</div>
+          </div>
+          <div class="uw-divider"></div>
+          <div class="uw-stat">
+            <div class="uw-num-big">30yr</div>
+            <div class="uw-label">Risk horizon</div>
+          </div>
+        </div>
+      </div>
+      <div class="fade-up" style="transition-delay:0.12s;">
+        <div class="uw-steps">
+          <div class="uw-step">
+            <div class="uw-num">1</div>
+            <div class="uw-body">
+              <h4>Cryptographic Exposure Assessment</h4>
+              <p>Our security engineers map your entire cryptographic attack surface — cataloguing every system, protocol, and credential type at risk.</p>
+            </div>
+          </div>
+          <div class="uw-step">
+            <div class="uw-num">2</div>
+            <div class="uw-body">
+              <h4>Quantum Threat Modelling</h4>
+              <p>We model your organisation's specific exposure to harvest-now, migration failure, and regulatory scenarios — with probabilistic loss estimates.</p>
+            </div>
+          </div>
+          <div class="uw-step">
+            <div class="uw-num">3</div>
+            <div class="uw-body">
+              <h4>Migration Roadmap Review</h4>
+              <p>Your PQC migration plan is reviewed by our underwriting engineers — improving your risk profile and reducing your premium simultaneously.</p>
+            </div>
+          </div>
+          <div class="uw-step">
+            <div class="uw-num">4</div>
+            <div class="uw-body">
+              <h4>Bespoke Policy Issuance</h4>
+              <p>A policy structured to your specific quantum risk profile — not a generic cyber policy with a quantum rider appended.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <section id="sectors" aria-label="Sectors InsurePQ Serves">
+    <p class="section-label">Who We Cover</p>
+    <h2 class="section-title">The organisations with the<br>most to <em>lose</em></h2>
+    <p class="section-body">InsurePQ is designed for organisations whose operations depend on cryptographic integrity — where a quantum-enabled breach is not a data incident, it is an existential event.</p>
+    <div class="sectors-grid fade-up">
+      <span class="sector-tag">Banks &amp; Capital Markets</span>
+      <span class="sector-tag">Insurance &amp; Reinsurance</span>
+      <span class="sector-tag">Government &amp; Defence</span>
+      <span class="sector-tag">Critical National Infrastructure</span>
+      <span class="sector-tag">Healthcare &amp; Life Sciences</span>
+      <span class="sector-tag">Cloud &amp; SaaS Providers</span>
+      <span class="sector-tag">Law Firms &amp; Professional Services</span>
+      <span class="sector-tag">Telecoms &amp; Utilities</span>
+      <span class="sector-tag">Semiconductor &amp; Deep Tech</span>
+    </div>
+  </section>
+
+  <section id="cta-section" aria-label="Get a Quote">
+    <p class="section-label">Get Started</p>
+    <h2 class="section-title" style="max-width:540px; margin:0 auto 1rem;">Quantify your quantum<br>risk. <em>Get covered.</em></h2>
+    <p class="section-body">Request a quote and receive your cryptographic exposure assessment within 48 hours — no commitment required.</p>
+    <form class="waitlist-form" onsubmit="handleWaitlist(event)">
+      <input type="email" id="email-input" placeholder="risk@yourcompany.com" required />
+      <button type="submit" class="btn-primary">Request a Quote</button>
+    </form>
+    <p id="waitlist-msg" style="margin-top:1.2rem; font-size:0.84rem; color:var(--teal); min-height:1.2em;"></p>
+    <p style="font-size:0.72rem; color:var(--text-soft); margin-top:0.5rem;">No spam. Our underwriters will respond within two business days.</p>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a class="nav-logo" href="/">Insure<span style="color:var(--teal-bright)">PQ</span></a>
+        <p>Cyber insurance for the post-quantum era.<br>Coverage built for the risk that's coming.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Coverage</h4>
+        <ul>
+          <li><a href="#">Cryptographic Breach</a></li>
+          <li><a href="#">Migration Liability</a></li>
+          <li><a href="#">Regulatory Cover</a></li>
+          <li><a href="#">Incident Response</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Underwriting</a></li>
+          <li><a href="#">Claims</a></li>
+          <li><a href="#">Reinsurance</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Use</a></li>
+          <li><a href="#">Regulatory</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 InsurePQ. All rights reserved.</p>
+      <p>insurepq.com — cover for the quantum era.</p>
+    </div>
+  </footer>
+
+  <script>
+    var hamburger = document.getElementById('hamburger');
+    var drawer = document.getElementById('nav-drawer');
+    var drawerClose = document.getElementById('drawer-close');
+    hamburger.addEventListener('click', function () {
+      var isOpen = drawer.classList.toggle('open');
+      hamburger.classList.toggle('open', isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+    drawerClose.addEventListener('click', closeDrawer);
+    function closeDrawer() {
+      drawer.classList.remove('open');
+      hamburger.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeDrawer(); });
+    window.addEventListener('scroll', function () {
+      document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('visible');
+        entry.target.querySelectorAll('.bar-fill[data-width]').forEach(function (bar) {
+          setTimeout(function () { bar.style.width = bar.getAttribute('data-width') + '%'; }, 200);
+        });
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(function (el) { observer.observe(el); });
+    function handleWaitlist(e) {
+      e.preventDefault();
+      document.getElementById('waitlist-msg').textContent = '✓ Quote request received. Our underwriters will be in touch within 48 hours.';
+      document.getElementById('email-input').value = '';
+    }
+  </script>
+</body>
+</html>
